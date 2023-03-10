@@ -1,0 +1,51 @@
+# main paths
+data_path: "MNIST"
+exp_path: "Experiments"
+
+# train
+annotations: "train.csv"
+images: "data"
+
+# validation
+val_annotations: "val.csv"
+val_images: "data"
+
+# exp params
+exp_name: baseline
+project: MNIST
+
+trainer:
+  devices: [0]
+  accelerator: gpu
+  precision: 16
+  max_epochs: 10
+  sync_batchnorm: True
+  gradient_clip_val: 1.0
+
+weights:
+model:
+  encoder: tf_efficientnet_b0
+  output: 10
+
+dataloader:
+  batch_size: 128
+  num_workers: 4
+
+transforms:
+  aug_prob: 1.0
+  side_size: 28
+
+optimizer: adam
+optimizer_params:
+  lr: 0.01
+  weight_decay: 0.0001
+
+scheduler: cosine
+scheduler_params:
+  warmup_epochs: 0
+
+checkpoint:
+  monitor: acc/val
+  filename: model
+  mode: max
+

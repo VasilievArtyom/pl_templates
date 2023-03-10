@@ -1,0 +1,30 @@
+# main paths
+data_path: "MNIST"
+
+# annotation paths
+annotations: "train.csv"
+images: "data"
+
+# exp params
+save_path: "Experiments/MNIST/baseline"
+test_name: val
+
+trainer:
+  devices: [1]
+  accelerator: gpu
+  precision: 16
+
+weights: "Experiments/MNIST/baseline/model.ckpt"
+model:
+  encoder: "tf_efficientnet_b0"
+  output: 10
+
+dataloader:
+  batch_size: 128
+  num_workers: 12
+
+preprocess:
+  side_size: 28
+
+classnames:
+  - "label"
